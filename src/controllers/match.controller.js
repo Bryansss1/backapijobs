@@ -37,7 +37,7 @@ const deleteMatchbyuser=async(req,res)=>{
         const result=await MatchServices.deleteMatch(jobId,id)
         res.json(result)
     } catch (error) {
-        res.status(400).json({message:"hubo un error al eliminar tu postulacion puede ser que no fuiste seleccionado"})
+      res.status(400).json({message:"hubo un error al eliminar tu postulacion puede ser que no fuiste seleccionado"})
     }
 }
 

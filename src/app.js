@@ -1,25 +1,35 @@
-const express=require("express")
-const cors=require("cors")
-const db=require("../src/utils/database")
-const morgan=require("morgan")
-const RoutesApp=require("./routes/index")
+const express = require("express");
+const expressFileUpLoad = require("express-fileupload");
+const cors = require("cors");
+const db = require("../src/utils/database");
+const morgan = require("morgan");
+const RoutesApp = require("./routes/index");
+const fileUpload = require("express-fileupload");
 
-const app=express()
+const app = express();
+app.set('view engine', 'ejs');
 
-app.use(express.json())
-app.use(cors())
-app.use(morgan("tiny"))
-RoutesApp(app)
+app.use(express.json());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./upload",
+  })
+);
+app.use(cors());
+app.use(morgan("tiny"));
+
+RoutesApp(app);
 
 db.authenticate()
-.then(()=>console.log("Database autenticada"))
-.catch((error)=>console.log(error))
+  .then(() => console.log("Database autenticada"))
+  .catch((error) => console.log(error));
 
 //alter true si existe? la tabla y es diferente al modelo? se actualiza
+
 db.sync({alter:true})
 .then(()=>console.log("Database sincronizada"))
 .catch((error)=>console.log(error))
-
 
 
 /* 
@@ -35,10 +45,8 @@ const sendEmail=async()=>{
 sendEmail()
 */
 
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to my server" });
+});
 
-
-app.get("/",(req,res)=>{
-    res.json({message:"Welcome to my server"})
-})
-
-module.exports=app;
+module.exports = app;

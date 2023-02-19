@@ -79,7 +79,7 @@ const getjobs=async(req,res)=>{
         const result=await JobsServices.getAlljobs(page,size)
         res.json(result)
     } catch (error) {
-        res.status(400).json({message:"error en la peticion"})
+       res.status(400).json({message:"error en la peticion"})
     }
 }
 
@@ -109,6 +109,7 @@ const upCompany=async(req,res)=>{
 const deleteJobRol=async(req,res)=>{
     try {
         const {id}=req.params
+
         const rol_id=req.params.rolId
         const result=await JobsServices.deleteRoljob(id,rol_id)
         res.json(result)
@@ -125,7 +126,8 @@ const deleteTecnojob=async(req,res)=>{
         res.json(result)
     } catch (error) {
         res.status(400).json({message:"error ,al eliminar la tecnologia del trabajo"})
-    }
+
+}
 }
 
 const aggnewTecnology=async(req,res)=>{

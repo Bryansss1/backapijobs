@@ -2,6 +2,8 @@ const models = require("../models/index");
 const bcrypt=require("bcrypt")
 const {
     user,
+    avatar,
+    cv,
     user_tecnology,
     user_rol,
     tecnology,
@@ -41,7 +43,7 @@ class UserService {
 
     static async alluser(){
         try {
-            const result=await user.findAll()
+            const result=await user.findAll({attributes:{exclude:["password"]}})
             return result
         } catch (error) {
             throw error

@@ -37,6 +37,19 @@ class AuthServices{
         }
     }
 
+static async verifyEmail(email,id){
+try {
+    const findUser=await user.findOne({where:{email:email,id:id}})
+    if(findUser){
+    const result=await user.update({is_verify:true},{where:{email:email,id:id}})
+    return result
+    }
+   
+} catch (error) {
+    throw error
+}
+}
+
 }
 
 

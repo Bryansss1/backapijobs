@@ -15,6 +15,7 @@ router.put("/jobs/:id",updateJob)
 
 router.get("/jobs/user",jobscreateByuser)
 
+
 router.post("/jobs/:id/tecnology/:tecnoid",aggnewTecnology)
 router.post("/jobs/:id/rol/:rolId",aggrolJob)
 router.delete("/jobs/:id/tecnology/:tecnoid",deleteJobRol)
@@ -23,6 +24,5 @@ router.put("/jobs/:id/salary",updateSalary)
 
 //seria con query esta manera /jobs?page=0&size=5
 router.get("/jobs",getjobs)
-
 
 module.exports=router
