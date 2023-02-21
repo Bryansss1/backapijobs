@@ -1,5 +1,6 @@
 const models = require("../models/index");
 const bcrypt=require("bcrypt")
+
 const {
     user,
     avatar,
@@ -75,6 +76,7 @@ class UserService {
     static async getOne(id){
         try {
             const result=await user.findAll({
+                attributes:{exclude:["password"]},
                 where:{id},
                 include:[
                     {model:user_rol,
@@ -84,6 +86,15 @@ class UserService {
                         model:rol,
                         as:"rol",
                         attributes:["name"]
+                    }
+                    },
+                    {model:user_tecnology,
+                    as:"user_tecnologies",
+                    attributes:["tecnology_id","years_tecnology"],
+                    include:{
+                    model:tecnology,
+                    as:"tecnology",
+                    attributes:["name"]
                     }
                     },
                     {model:projects,
@@ -114,11 +125,42 @@ class UserService {
                     */
                 ]
             })
+          
             return result
         } catch (error) {
         throw error        
     }
     }
+
+
+    static async rolCreate(rolBody,iduser){
+        try {
+            const findd=await user_rol.findOne({where:{user_id:iduser}})
+            if(findd){
+            const deleteTecnology=await user_tecnology.destroy({where:{user_id:iduser}})
+            const deleteRol=await user_rol.destroy({where:{user_id:iduser}})
+            rolBody.forEach(async rol_user=>{
+            const createrol=await user_rol.create({rol_id:rol_user.id_rol,user_id:iduser})
+            rol_user.id_tecnology.forEach(async tecno=>{
+            const createTecno=await user_tecnology.create({user_id:iduser,tecnology_id:tecno,years_tecnology:0})
+            })
+            })
+            return {message:"Rol actualizado :)"}
+            }else{
+            rolBody.forEach(async rol_user=>{
+            const createrol=await user_rol.create({rol_id:rol_user.id_rol,user_id:iduser})
+            rol_user.id_tecnology.forEach(async tecno=>{
+            const createTecno=await user_tecnology.create({user_id:iduser,tecnology_id:tecno,years_tecnology:0})
+            })
+            })
+            return {message:"Rol creado :)"}
+            }
+        
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 }
 

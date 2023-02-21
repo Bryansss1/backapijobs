@@ -1,5 +1,6 @@
 const  UserService = require("../services/user.service");
-const jwt=require("jsonwebtoken")
+const jwt=require("jsonwebtoken");
+const { async } = require("../services/user.service");
 require("dotenv").config()
 
 
@@ -62,10 +63,26 @@ const getOneuserByid=async(req,res)=>{
         res.status(400).json(error.message)
     }
 }
+
+const roluser_withTecnology=async(req,res)=>{
+    try {
+        let token=req.headers.authorization
+        token=token.replace("Bearer ","")
+        const tokendecode=jwt.verify(token,process.env.JWT_SECRET)
+        const {id}=tokendecode
+        const rolBody=req.body
+        const result=await UserService.rolCreate(rolBody,id)
+        res.json(result)
+    } catch (error) {
+        res.status(400).json({message:"debe haber un error con el nombre de las propiedades"})
+    }
+}
+
 module.exports = {
     deletePerfil,
     allUsers,
     updateUser,
     getOneuser,
-    getOneuserByid
+    getOneuserByid,
+    roluser_withTecnology
 }

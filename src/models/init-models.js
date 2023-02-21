@@ -86,7 +86,7 @@ function initModels(sequelize) {
   user_tecnology.belongsTo(user, { as: "id_user", foreignKey: "id"});
   user.hasOne(user_tecnology, { as: "user_tecnology", foreignKey: "id"});
   user_tecnology.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(user_tecnology, { as: "user_user_tecnologies", foreignKey: "user_id"});
+  user.hasMany(user_tecnology, { as: "user_tecnologies", foreignKey: "user_id"});
 
   /*buenas */
   return {

@@ -77,6 +77,8 @@ const deleteRolbyUserr=async(req,res)=>{
 }
 
 
+
+
 module.exports = {
   createRool,
   createRol_tecnology,

@@ -62,9 +62,9 @@ static async createRolbyuser(rolnewuser){
   }
 }
 
-static async deleteRolByuser(iduser,idtecnology){
+static async deleteRolByuser(iduser,rolId){
   try {
-      const result=await user_rol.destroy({where:{user_id:iduser,tecnology_id:idtecnology}})
+      const result=await user_rol.destroy({where:{user_id:iduser,rol_id:rolId}})
       return result
   } catch (error) {
       throw error
