@@ -43,8 +43,12 @@ class user extends Sequelize.Model {
     article_1: {
       type: DataTypes.STRING(250),
       allowNull: true
-    }, 
-    url_portfolio: {
+    },
+    status:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    url_linkedin: {
       type: DataTypes.STRING,
       allowNull: true
     },

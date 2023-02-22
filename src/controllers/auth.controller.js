@@ -108,6 +108,30 @@ const verifyEmailUser=async(req,res)=>{
     }
 }
 
+
+const recover_password=async(req,res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports={
     register,
     login,
