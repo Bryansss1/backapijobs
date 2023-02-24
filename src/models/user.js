@@ -48,6 +48,10 @@ class user extends Sequelize.Model {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    url_github:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     url_linkedin: {
       type: DataTypes.STRING,
       allowNull: true

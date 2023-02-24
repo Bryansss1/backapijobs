@@ -155,7 +155,7 @@ static async getAlljobs(page,size){
         let options={
             limit: Number(size),
             offset: Number(page) * Number(size)
-            }
+        }
         const result=await jobs.findAndCountAll(
             {
                 limit:options.limit,
