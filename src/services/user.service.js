@@ -17,7 +17,9 @@ const {
     jobs_rol,
     jobs_tecnology,
     company,
-    repository
+    repository,
+    salary,
+    save_jobs_user
 } = models
 
 class UserService {
@@ -28,24 +30,39 @@ class UserService {
             const repo=await repository.destroy({where:{user_id:id}})
             const userrolz=await user_rol.destroy({where:{user_id:id}})
             const user_rolldelete=await user_tecnology.destroy({where:{user_id:id}})
-            const posuser=await postulation_job_reclutier.destroy({where:{user_id:id}})
-            const pore=await postulation_job_user.destroy({where:{user_id:id}})
             const delete4=await match.destroy({where:{user_id:id}})
-            const delete3=await jobs_tecnology.destroy({where:{user_id:id}})
-            const delete2=await jobs_rol.destroy({where:{user_id:id}})
-            const compa=await company.destroy({where:{user_id:id}})
+            const finde=await jobs.findAll({where:{user_id:id}})
+            const pore=await postulation_job_user.destroy({where:{user_id:id}})
+            const posuser=await postulation_job_reclutier.destroy({where:{user_id:id}})
+            finde.forEach(async jobb=>{
+            
+            const delete3=await jobs_tecnology.destroy({where:{jobs_id:jobb.id}})
+            const delete2=await jobs_rol.destroy({where:{jobs_id:jobb.id}})
+            const deleteSalary=await salary.destroy({where:{job_id:jobb.id}})
+            const deletejobsSave=await save_jobs_user.destroy({where:{jobs_id:jobb.id}})
+            })
             const delete1=await jobs.destroy({where:{user_id:id}})
+            const compa=await company.destroy({where:{user_id:id}})
             const result = await user.destroy({where:{id}})
-            return (result)
+            return ({message:"user elimated success"})
         } catch (error) {
             throw error
         }
     }
 
-    static async alluser(){
+    static async alluser(status){
         try {
-            const result=await user.findAll({attributes:{exclude:["password"]}})
+            if(status){
+            const result=await user.findAll({
+            where:{status},
+            attributes:{exclude:["password"]}
+            })
             return result
+            }else{
+            const result=await user.findAll({attributes:{exclude:["password"]}})
+            return result   
+            }
+            
         } catch (error) {
             throw error
         }

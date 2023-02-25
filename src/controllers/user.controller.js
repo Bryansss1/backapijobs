@@ -19,7 +19,8 @@ const deletePerfil = async (req,res) => {
 
 const allUsers=async(req,res)=>{
     try {
-        const result=await UserService.alluser()
+        const status=req.query.status
+        const result=await UserService.alluser(status)
         res.json(result)
     } catch (error) {
         res.status(400).json(error.message)

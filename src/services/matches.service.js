@@ -26,8 +26,8 @@ static async createMatch(iduser,job_id){
       const statuschange=await postulation_job_reclutier.update({state:"waiting response for user"},{where:{user_id:iduser,jobs_id:job_id}})
       if(findpost){
         const deleteFind=await postulation_job_user.destroy({where:{user_id:iduser,jobs_id:job_id}})
-        const result=await match.create({user_id:iduser,jobs_id:job_id})
-        return result
+        const data=await match.create({user_id:iduser,jobs_id:job_id})
+        return {message:"la postulacion a sido un exito",data}
       }else{
         return {message:"el usuario no ha postulado a este trabajo o a eliminado su postulacion"}
       }
