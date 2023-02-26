@@ -13,6 +13,11 @@ class jobs extends Sequelize.Model {
       allowNull: false,
       primaryKey: true
     },
+    post_date:{
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false

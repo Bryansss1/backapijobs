@@ -219,6 +219,10 @@ const result=await jobs.findAndCountAll(
                             attributes:["name"]
                             }
                     },
+                    {model:salary,
+                    as:"salaries",
+                    attributes:["price_min","price_max","price","to_agree"]
+                    },
                     {
                     model:company,
                     as:"company",
