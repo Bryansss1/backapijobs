@@ -190,7 +190,11 @@ static async getAlljobs(page,size,roll){
                 model:user,
                 as:"user",
                 attributes:["firstname","lastname","email"]
-                } 
+                },
+                {model:salary,
+                    as:"salaries",
+                    attributes:["price"]
+                },
                 ]
             }
         )
@@ -221,7 +225,7 @@ const result=await jobs.findAndCountAll(
                     },
                     {model:salary,
                     as:"salaries",
-                    attributes:["price_min","price_max","price","to_agree"]
+                    attributes:["price"]
                     },
                     {
                     model:company,
