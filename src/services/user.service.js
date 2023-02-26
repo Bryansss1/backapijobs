@@ -50,17 +50,79 @@ class UserService {
         }
     }
 
-    static async alluser(status){
+    static async alluser(page,size,status){
         try {
+            let options={
+                limit: Number(size),
+                offset: Number(page) * Number(size)
+            }
             if(status){
-            const result=await user.findAll({
+            const result=await user.findAndCountAll({
+            limit:options.limit,
+            offset:options.offset,
             where:{status},
-            attributes:{exclude:["password"]}
+            attributes:{exclude:["password"]},
+            include:[
+                {model:user_rol,
+                as:"user_rols",
+                attributes:["rol_id"],
+                include:{
+                    model:rol,
+                    as:"rol",
+                    attributes:["name"]
+                }
+                },
+                {model:user_tecnology,
+                as:"user_tecnologies",
+                attributes:["tecnology_id","years_tecnology"],
+                include:{
+                model:tecnology,
+                as:"tecnology",
+                attributes:["name"]
+                }
+                },
+                {model:projects,
+                as:"projects"
+                },
+                {model:repository,
+                as:"repositories"
+                }
+            ]
             })
-            return result
+            return ({total:result.count,users:result.rows})
             }else{
-            const result=await user.findAll({attributes:{exclude:["password"]}})
-            return result   
+            const result=await user.findAndCountAll({
+                limit:options.limit,
+                offset:options.offset,
+                attributes:{exclude:["password"]},
+                include:[
+                    {model:user_rol,
+                    as:"user_rols",
+                    attributes:["rol_id"],
+                    include:{
+                        model:rol,
+                        as:"rol",
+                        attributes:["name"]
+                    }
+                    },
+                    {model:user_tecnology,
+                    as:"user_tecnologies",
+                    attributes:["tecnology_id","years_tecnology"],
+                    include:{
+                    model:tecnology,
+                    as:"tecnology",
+                    attributes:["name"]
+                    }
+                    },
+                    {model:projects,
+                    as:"projects"
+                    },
+                    {model:repository,
+                    as:"repositories"
+                    }
+                ]
+            })
+            return ({total:result.count,users:result.rows})
             }
             
         } catch (error) {

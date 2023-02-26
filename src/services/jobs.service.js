@@ -150,17 +150,37 @@ try {
 }
 
 //
-static async getAlljobs(page,size){
+static async getAlljobs(page,size,roll){
     try {
         let options={
             limit: Number(size),
             offset: Number(page) * Number(size)
         }
-        const result=await jobs.findAndCountAll(
-            {
+        if(roll){
+            const result=await jobs.findAndCountAll(
+                {
                 limit:options.limit,
                 offset:options.offset,
                 include:[
+                        {model:jobs_tecnology,
+                        as:"jobs_tecnologies",
+                        attributes:["tecnology_id","years_tecnology"],
+                        include:{
+                        model:tecnology,
+                        as:"tecnology",
+                        attributes:["name"]   
+                        }
+                        },
+                        {model:jobs_rol,
+                        where:{rol_id:roll},
+                        as:"jobs_rols",
+                        attributes:["rol_id"],
+                        include:{
+                        model:rol,
+                        as:"rol",
+                        attributes:["name"]
+                        }
+                },
                 {
                 model:company,
                 as:"company",
@@ -174,7 +194,49 @@ static async getAlljobs(page,size){
                 ]
             }
         )
-       return({total:result.count,jobs:result.rows}) 
+       return({total:result.count,jobs:result.rows})
+        }else{
+const result=await jobs.findAndCountAll(
+                    {
+                    limit:options.limit,
+                    offset:options.offset,
+                    include:[
+                    {model:jobs_tecnology,
+                            as:"jobs_tecnologies",
+                            attributes:["tecnology_id","years_tecnology"],
+                            include:{
+                            model:tecnology,
+                            as:"tecnology",
+                            attributes:["name"]   
+                            }
+                            },
+                            {model:jobs_rol,
+                            as:"jobs_rols",
+                            attributes:["rol_id"],
+                            include:{
+                            model:rol,
+                            as:"rol",
+                            attributes:["name"]
+                            }
+                    },
+                    {
+                    model:company,
+                    as:"company",
+                    attributes:["name"]
+                    },
+                    {
+                    model:user,
+                    as:"user",
+                    attributes:["firstname","lastname","email"]
+                    } 
+                    ]
+                }
+            )
+           return({total:result.count,jobs:result.rows})
+        }
+            
+        
+         
      } catch (error) {
         throw error
      }

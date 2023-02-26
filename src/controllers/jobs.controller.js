@@ -74,9 +74,9 @@ const getJobforOne=async(req,res)=>{
 
 const getjobs=async(req,res)=>{
     try {
-        const{page=0,size=6}=req.query;
-
-        const result=await JobsServices.getAlljobs(page,size)
+        const{page=0,size=6,rol}=req.query;
+        const idRol=Number(rol)
+        const result=await JobsServices.getAlljobs(page,size,idRol)
         res.json(result)
     } catch (error) {
        res.status(400).json({message:"error en la peticion"})
