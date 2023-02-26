@@ -21,22 +21,10 @@ class salary extends Sequelize.Model {
         key: 'id'
       }
     },
-    price_min: {
-      type: DataTypes.DOUBLE,
-      allowNull: true
-    },
-    price_max: {
-      type: DataTypes.DOUBLE,
-      allowNull: true
-    },
     price: {
       type: DataTypes.DOUBLE,
       allowNull: true
     },
-    to_agree: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true
-    }
   }, {
     sequelize,
     tableName: 'salary',
