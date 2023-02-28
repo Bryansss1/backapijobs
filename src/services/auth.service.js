@@ -4,7 +4,15 @@ const models=require("../models/index")
 const jwt=require("jsonwebtoken")
 require("dotenv").config()
 
-const {user}=models
+const {
+    user,
+    tecnology,
+    rol,
+    user_rol,
+    user_tecnology,
+    projects,
+    repository,
+}=models
 
 class AuthServices{
     static async register(userr){
@@ -18,7 +26,35 @@ class AuthServices{
 
     static async login(credentials){
         try {
-        const findUser=await user.findOne({where:{email:credentials.email}})
+        const findUser=await user.findOne({
+            where:{email:credentials.email},
+            include:[
+                {model:user_rol,
+                as:"user_rols",
+                attributes:["rol_id"],
+                include:{
+                    model:rol,
+                    as:"rol",
+                    attributes:["name"]
+                }
+                },
+                {model:user_tecnology,
+                as:"user_tecnologies",
+                attributes:["tecnology_id","years_tecnology"],
+                include:{
+                model:tecnology,
+                as:"tecnology",
+                attributes:["name"]
+                }
+                },
+                {model:projects,
+                as:"projects"
+                },
+                {model:repository,
+                as:"repositories"
+                }
+            ]
+        })
         if(findUser){
             const isValid=bcrypt.compareSync(credentials.password,findUser.password);
             return isValid?{isValid,findUser}:{isValid}

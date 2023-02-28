@@ -14,6 +14,11 @@ class user extends Sequelize.Model {
       allowNull: false,
       primaryKey: true
     },
+    premiun:{
+      type: DataTypes.BOOLEAN,
+      allowNull:false,
+      defaultValue:false
+    },
     firstname: {
       type: DataTypes.STRING,
     },
@@ -31,6 +36,11 @@ class user extends Sequelize.Model {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    years_experience:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
     },
     avatar: {
       type: DataTypes.STRING,
