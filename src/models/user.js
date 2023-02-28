@@ -47,11 +47,11 @@ class user extends Sequelize.Model {
       allowNull: true
     },
     about_me: {
-      type: DataTypes.STRING(300),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     article_1: {
-      type: DataTypes.STRING(250),
+      type: DataTypes.STRING(550),
       allowNull: true
     },
     status:{

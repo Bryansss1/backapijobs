@@ -1,7 +1,7 @@
 
 const models=require("../models/index")
 
-const {postulation_job_user,postulation_job_reclutier,jobs}=models
+const {rol,tecnology,user,postulation_job_user,postulation_job_reclutier,jobs,jobs_tecnology,jobs_rol,company,salary}=models
 
 class postulationServices{
 
@@ -60,16 +60,53 @@ static async getpostulationByuser(id,size,page){
         let options={
             limit: Number(size),
             offset: Number(page) * Number(size)
-            }
-        const result=await postulation_job_user.findAndCountAll(options,{
+        }
+        const result=await postulation_job_user.findAndCountAll({
+            limit:options.limit,
+            offset:options.offset,
             where:{user_id:id},
             attributes:{exclude:["user_id"]},
-            include:{
-                model: jobs,
-                as:"job",
+            include:[
+            {model:jobs,
+            as:"job",
+            attributes:{exclude:["id"]},
+            include:[
+                {model:jobs_tecnology,
+                        as:"jobs_tecnologies",
+                        attributes:["tecnology_id","years_tecnology"],
+                        include:{
+                        model:tecnology,
+                        as:"tecnology",
+                        attributes:["name"]   
+                        }
+                        },
+                        {model:jobs_rol,
+                        as:"jobs_rols",
+                        attributes:["rol_id"],
+                        include:{
+                        model:rol,
+                        as:"rol",
+                        attributes:["name"]
+                        }
+                },
+                {model:salary,
+                as:"salaries",
+                attributes:["price"]
+                },
+                {
+                model:company,
+                as:"company",
+                attributes:["name"]
+                },
+                {
+                model:user,
+                as:"user",
+                attributes:["firstname","lastname","email"]
+                } 
+                ]
             }
-            
-        })
+            ]
+        }) 
         return ({total:result.count,Postulation_job:result.rows})
     } catch (error) {
         throw error
@@ -82,10 +119,46 @@ static async getPostulationbyJob(id){
             where:{jobs_id:id},
             attributes:["user_id"],
             where:{user_id:id},
-            include:{
-            model: jobs,
-            as:"job",
-            }
+            include:[
+                {model:jobs,
+                as:"job",
+                attributes:{exclude:["id"]},
+                include:[
+                    {model:jobs_tecnology,
+                            as:"jobs_tecnologies",
+                            attributes:["tecnology_id","years_tecnology"],
+                            include:{
+                            model:tecnology,
+                            as:"tecnology",
+                            attributes:["name"]   
+                            }
+                            },
+                            {model:jobs_rol,
+                            as:"jobs_rols",
+                            attributes:["rol_id"],
+                            include:{
+                            model:rol,
+                            as:"rol",
+                            attributes:["name"]
+                            }
+                    },
+                    {model:salary,
+                    as:"salaries",
+                    attributes:["price"]
+                    },
+                    {
+                    model:company,
+                    as:"company",
+                    attributes:["name"]
+                    },
+                    {
+                    model:user,
+                    as:"user",
+                    attributes:["firstname","lastname","email"]
+                    } 
+                    ]
+                }
+                ]
         })
         return result
     } catch (error) {

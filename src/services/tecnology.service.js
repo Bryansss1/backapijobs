@@ -34,10 +34,12 @@ static async deleteTecnologyz(id){
     }
 }
 
-static async createTecnoByuser(newTecno){
+static async createTecnoByuser(newTecno,iduser){
     try {
-        const result=await user_tecnology.create(newTecno)
-        return result
+        newTecno.id_tecnology.forEach(async tecno=>{
+        const result=await user_tecnology.create({user_id:iduser,tecnology_id:tecno.id,years_tecnology:tecno.years})
+        })
+        return {message:"tecnologias creadas"}
     } catch (error) {
         throw error
     }

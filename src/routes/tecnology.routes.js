@@ -9,7 +9,7 @@ router.delete("/tecnology/:id",deleteTecnology)
 
 router.get("/user_tecnology",getAlltecnologyByuser)
 
-router.post("/user_tecnology/:id/years/:year",createtecnoByuserr)
+router.post("/user_tecnology",createtecnoByuserr)
 router.delete("/user_tecnology/:id",deleteTecnobyUser)
 router.put("/user_tecnology/:id/years/:year",updateTecnobyUser)
 
