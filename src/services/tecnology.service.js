@@ -68,6 +68,15 @@ static async getAllusertecno(id){
     }
 }
 
+static async updateTecnobyuser(id,tecnoid,upbody){
+    try {
+    const result=await user_tecnology.update(upbody,{where:{user_id:id,tecnology_id:tecnoid}})
+    return result
+    } catch (error) {
+    throw error
+    }
+}
+
 
 }
 

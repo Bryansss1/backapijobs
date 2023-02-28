@@ -64,6 +64,24 @@ const deleteTecnobyUser=async(req,res)=>{
     }
 }
 
+const updateTecnobyUser=async(req,res,next)=>{
+    try {
+        let token=req.headers.authorization
+        token=token.replace("Bearer ","")
+        const tokendecode=jwt.verify(token,process.env.JWT_SECRET)
+        const {id}=tokendecode
+        const tecnoId=req.params.id
+        const yeastecno=req.params.year
+        const upTecno={
+            years_tecnology:yeastecno
+        };
+      const result=await tecnologyServices.updateTecnobyuser(id,tecnoId,upTecno)
+      res.json({message:"tecnology years update :)",result}) 
+    } catch (error) {
+        next(error)
+    }
+}
+
 const getAlltecnologyByuser=async(req,res)=>{
     try {
         let token=req.headers.authorization
@@ -76,6 +94,7 @@ const getAlltecnologyByuser=async(req,res)=>{
         res.status(400).json({ message: error });
     }
 }
+
 module.exports={
     tecnologyCreate,
     getAlltecnology,
@@ -83,5 +102,6 @@ module.exports={
 
     deleteTecnobyUser,
     createtecnoByuserr,
-    getAlltecnologyByuser
+    getAlltecnologyByuser,
+    updateTecnobyUser
 }

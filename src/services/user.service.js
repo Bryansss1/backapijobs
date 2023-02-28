@@ -221,7 +221,7 @@ class UserService {
             rolBody.forEach(async rol_user=>{
             const createrol=await user_rol.create({rol_id:rol_user.id_rol,user_id:iduser})
             rol_user.id_tecnology.forEach(async tecno=>{
-            const createTecno=await user_tecnology.create({user_id:iduser,tecnology_id:tecno,years_tecnology:0})
+            const createTecno=await user_tecnology.create({user_id:iduser,tecnology_id:tecno.id,years_tecnology:tecno.years})
             })
             })
             return {message:"Rol actualizado :)"}
@@ -229,7 +229,7 @@ class UserService {
             rolBody.forEach(async rol_user=>{
             const createrol=await user_rol.create({rol_id:rol_user.id_rol,user_id:iduser})
             rol_user.id_tecnology.forEach(async tecno=>{
-            const createTecno=await user_tecnology.create({user_id:iduser,tecnology_id:tecno,years_tecnology:0})
+            const createTecno=await user_tecnology.create({user_id:iduser,tecnology_id:tecno.id,years_tecnology:tecno.years})
             })
             })
             return {message:"Rol creado :)"}
