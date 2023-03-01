@@ -9,6 +9,7 @@ const createJobb=async(req,res)=>{
         const {id}=tokendecode
         const {company_name,title,description,image,country,work_place,working_day,tecnologies_job,rol_job_id,job_salary}=req.body
         const dateFake={
+            user_id:16,
             name: company_name,
             country:"venezuela",
             city:"maracaibo",
