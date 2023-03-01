@@ -131,15 +131,17 @@ try {
             attributes:["name"]
             }
             },
-            {model:user,
-            as:"user",
-            include:{
+            {
             model:company,
-            as:"companies"
-            }  
+            as:"company",
+            attributes:["name"]
+            },
+            {model:user,
+            as:"user", 
             },
             {model:salary,
-            as:"salaries"
+            as:"salaries",
+            attributes:["price"]
             }
         ]
     })
@@ -294,6 +296,15 @@ return result
 } catch (error) {
     throw error
 }
+}
+
+static async createCompanyyWithjob(companyy){
+    try {
+    const result=await company.create(companyy)
+    return result
+    } catch (error) {
+    throw error
+    }
 }
 
 
