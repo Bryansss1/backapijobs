@@ -1,5 +1,5 @@
 const {Router}=require("express");
-const { getJobforOne, deleJob, updateJob, createJobb, getjobs, createCompany, upCompany,infoCompany,aggnewTecnology, aggrolJob, deleteJobRol, deleteTecnojob, updateSalary, deleteCompany, jobscreateByuser } = require("../controllers/jobs.controller");
+const { getJobforOne, deleJob, updateJob, createJobb, getjobs, createCompany, upCompany,infoCompany,aggnewTecnology, aggrolJob, deleteJobRol, deleteTecnojob, updateSalary, deleteCompany, jobscreateByuser, allCompany } = require("../controllers/jobs.controller");
 
 const router=Router()
 
@@ -7,6 +7,7 @@ router.get("/company/:id",infoCompany)
 router.post("/company",createCompany)
 router.put("/company/:id",upCompany)
 router.delete("/company/:id",deleteCompany)
+router.get("/company",allCompany)
 
 router.get("/jobs/:id",getJobforOne)
 router.delete("/jobs/:id",deleJob)

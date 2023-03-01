@@ -307,6 +307,14 @@ static async createCompanyyWithjob(companyy){
     }
 }
 
+static async findAllcompany(){
+    try {
+        const result=await company.findAll()
+        return result
+    } catch (error) {
+    throw error
+    }
+}
 
 }
 

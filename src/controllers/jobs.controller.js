@@ -35,6 +35,15 @@ const createJobb=async(req,res)=>{
     }
 }
 
+const allCompany=async(req,res)=>{
+    try {
+       const result=await JobsServices.findAllcompany()
+       res.json(result)
+    } catch (error) {
+        throw error
+    }
+}
+
 const updateJob=async(req,res)=>{
     try {
         let token=req.headers.authorization
@@ -216,7 +225,7 @@ module.exports={
     infoCompany,
 
     aggnewTecnology,
-    
+    allCompany,
     aggrolJob,
     deleteJobRol,
     deleteTecnojob,
