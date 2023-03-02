@@ -12,11 +12,14 @@ class RolService {
     }
   }
 
-static async createrolTecnology(rolId,tecnoId){
+static async createrolTecnology(rolId,tecnoArray){
   try {
-    const result=await rol_tecnology.create({rol_id:rolId,tecnology_id:tecnoId})
+    tecnoArray.forEach(async tecno =>{
+    const result=await rol_tecnology.create({rol_id:rolId,tecnology_id:tecno})
+    return result
+    })
   } catch (error) {
-    
+    throw error
   }
 }
 

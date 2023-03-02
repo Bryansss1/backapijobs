@@ -44,7 +44,6 @@ const deleteRoll=async(req,res)=>{
 
 const createRolByuserr=async(req,res)=>{
   try {
-    const{page=0,size=6}=req.query;
     let token=req.headers.authorization
     token=token.replace("Bearer ","")
     const tokendecode=jwt.verify(token,process.env.JWT_SECRET)
