@@ -109,6 +109,7 @@ const verifyEmailUser=async(req,res)=>{
 }
 
 
+/*
 const recover_password=async(req,res)=>{
     try {
         
@@ -116,7 +117,7 @@ const recover_password=async(req,res)=>{
         
     }
 }
-
+*/
 
 
 

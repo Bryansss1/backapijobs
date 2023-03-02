@@ -74,6 +74,14 @@ static async deleteRolByuser(iduser,rolId){
   }
 }
 
+static async deleteTecnoinRol(idtecno,rolId){
+  try {
+    const result=await rol_tecnology.destroy({where:{rol_id:rolId,tecnology_id:idtecno}})
+    return result
+  } catch (error) {
+    throw error
+  }
+}
 
 
 }

@@ -75,7 +75,15 @@ const deleteRolbyUserr=async(req,res)=>{
   }
 }
 
-
+const deleteTecnorol=async(req,res,next)=>{
+  try {
+    const {id,rol_id}=req.params
+    const result=await RolService.deleteTecnoinRol(id,rol_id)
+    res.json({message:"tecnologia eliminada del rol",result})
+  } catch (error) {
+    next(error)
+  }
+}
 
 
 module.exports = {
@@ -84,6 +92,7 @@ module.exports = {
   getAllrols,
   deleteRoll,
 
+  deleteTecnorol,
   deleteRolbyUserr,
   createRolByuserr,
 };
